@@ -1,0 +1,82 @@
+﻿@page
+@model ClinicWebApp.Pages.Account.ProfileModel
+@{
+}
+
+<div class="form-wrap">
+    <form method="post" asp-page="Profile" enctype="multipart/form-data" class="form">
+        <div asp-validation-summary="All" class="validation-error"></div>
+
+        <input asp-for="isDoctor" hidden />
+
+        <label asp-for="UserName" class="label"></label>
+        <input asp-for="UserName" readonly class="input" />
+        <span asp-validation-for="UserName" class="span"></span>
+
+
+        <label asp-for="Name" class="label"></label>
+        <input asp-for="Name" class="input" />
+        <span asp-validation-for="Name" class="span"></span>
+
+        <label asp-for="NationalCode" class="label"></label>
+        <input asp-for="NationalCode" readonly class="input" />
+        <span asp-validation-for="NationalCode" class="span"></span>
+
+        <label asp-for="PhoneNumber" class="label"></label>
+        <input asp-for="PhoneNumber" class="input" />
+        <span asp-validation-for="PhoneNumber" class="span"></span>
+
+        <label asp-for="Email" class="label"></label>
+        <input asp-for="Email" class="input" />
+        <span asp-validation-for="Email" class="span"></span>
+
+        @if (@Model.isDoctor)
+        {
+            <label asp-for="DoctorNumber" class="label"></label>
+            <input readonly asp-for="DoctorNumber" class="input" />
+            <span asp-validation-for="DoctorNumber" class="span"></span>
+
+            <label asp-for="Profession" class="label"></label>
+            <input asp-for="Profession" class="input" />
+            <span asp-validation-for="Profession" class="span"></span>
+
+            <label asp-for="Profile" class="label"></label>
+            @if (Model.ProfileAddress != null)
+            {
+                <div class="form-image-container">
+                    <img src=@Model.ProfileAddress style="width: 100%;" />
+                </div>
+            }
+            <input type="file" asp-for="Profile" class="input" />
+            <span asp-validation-for="Profile" class="span"></span>
+
+            <label asp-for="Pictures" class="label"></label>
+            <label class="label" style="color: red;">افزودن بیشتر از 5 عکس موجب حذف عکس های قبلی میگردد!</label>
+            @if (Model.PicturesAddresses != null)
+            {
+                <div class="form-image-container">
+                    @foreach (var address in Model.PicturesAddresses)
+                    {
+                        <img src="@address" style="width: 100%;" />
+                    }
+                </div>
+            }
+            <input type="file" multiple asp-for="Pictures" class="input" />
+            <span asp-validation-for="Pictures" class="span"></span>
+        }
+        <input type="submit" value="ذخیره" class="button" />
+
+        <div class="signup-link">
+            @if (@Model.isDoctor)
+            {
+                <a asp-page="../Admin/SetupInfo">تکمیل اطلاعات دکتر</a>
+                <br />
+                <a asp-page="../Admin/SetCode">تنظیم کد جدید</a>
+            }
+            else
+            {
+                <a asp-page="../Admin/SetupCode">گرفتن دسترسی دکتر</a>
+            }
+        </div>
+    </form>
+</div>

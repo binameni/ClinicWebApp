@@ -1,0 +1,26 @@
+﻿@page
+@model ClinicWebApp.Pages.Account.SigninModel
+@{
+}
+
+<div class="form-wrap">
+    <form asp-page="Signin" asp-route-ReturnUrl="@Model.ReturnUrl" method="post" class="form">
+        <div asp-validation-summary="All" class="validation-error"></div>
+        <br />
+
+        <label asp-for="Username" class="label"></label>
+        <input type="text" asp-for="Username" class="input">
+        <span asp-validation-for="Username" class="span"></span>
+
+
+        <label asp-for="Password" class="label"></label>
+        <input type="password" asp-for="Password" class="input">
+        <span asp-validation-for="Password" class="span"></span>
+
+
+        <input type="submit" value="ورود" class="button" />
+        <div class="signup-link">
+            <p>اکانت ندارید؟ <a asp-page="Signup">ثبت نام</a></p>
+        </div>
+    </form>
+</div>

@@ -1,0 +1,17 @@
+﻿@page
+@model SetupInfoModel
+@{
+}
+
+<div class="form-wrap">
+    <form asp-page="SetupInfo" method="post" class="form">
+        <div asp-validation-summary="All" class="validation-error"></div>
+        <label asp-for="DoctorNumber" class="label"></label>
+        <input type="text" asp-for="DoctorNumber" class="input" />
+        <span asp-validation-for="DoctorNumber" class="span"></span>
+        <label asp-for="Profession" class="label"></label>
+        <input type="text" asp-for="Profession" class="input" />
+        <span asp-validation-for="Profession" class="span"></span>
+        <input type="submit" value="ثبت و تایید اطلاعات" class="button" />
+    </form>
+</div>

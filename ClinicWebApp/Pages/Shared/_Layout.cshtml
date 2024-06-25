@@ -1,0 +1,147 @@
+﻿@inject SignInManager<ApplicationUser> signInManager;
+@inject UserManager<ApplicationUser> userManager;
+
+@{
+    bool isSignedIn = signInManager.IsSignedIn(User);
+    ApplicationUser? applicationUser = null;
+    bool isDoctor = false;
+    if (isSignedIn)
+    {
+        applicationUser = await userManager.FindByNameAsync(User.Identity.Name);
+        isDoctor = await userManager.IsInRoleAsync(applicationUser, ApplicationRoles.Doctor);
+    }
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.2.1/axios.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+    <link rel="stylesheet" href="~/css/site.css">
+    <link rel="stylesheet" href="~/css/style.css">
+    <link rel="stylesheet" href="~/css/form.css">
+    <link rel="stylesheet" href="~/css/list.css">
+    <link rel="icon" href="logo.ico">
+</head>
+
+<body>
+    @if (TempData["Message"] != null)
+    {
+        <div class="alert" id="myAlert">
+            @if ((bool)(TempData["IsError"] ?? false))
+            {
+                <p class="alert-text error-alert">
+                    @TempData["Message"]
+                </p>
+            }
+            else
+            {
+                <p class="alert-text info-alert">
+                    @TempData["Message"]
+                </p>
+            }
+        </div>
+    }
+
+    <header class="header">
+
+        <a href="#" class="logo">
+            <i class="fas fa-teeth"></i> Mobi dental clinics & implant center<br>
+            <marquee direction="right"> <h6>hamedan malayer,malayer uni </h6></marquee>
+        </a>
+
+        <nav dir="rtl" class="navbar">
+            <a href="/">خانه</a>
+            @if (!isDoctor)
+            {
+                <a asp-page="/User/DoctorObserver/DoctorList">دریافت نوبت</a>
+            }
+            <a href="#review">نظرات</a>
+            @if (!isSignedIn)
+            {
+                <a asp-page="/Account/Signin">ورود/ثبت نام</a>
+            }
+            else
+            {
+                <a asp-page="/Account/Signout">خروج از حساب</a>
+
+                <a asp-page="/Account/Profile">پروفایل</a>
+
+                @if (isDoctor)
+                {
+                    <a asp-page="/Admin/VisitManager/VisitListManager">برنامه ریزی نوبت ها</a>
+                    @* <a asp-page="/Admin/SetCode">تنظیم کد دکتر ها</a>
+            <a asp-page="/Admin/SetupCode">گرفتن دسترسی دکتر ها</a>
+            <a asp-page="/Admin/SetupInfo">تکمیل پروفایل</a> *@
+                }
+            }
+        </nav>
+
+        <div id="menu-btn" class="fas fa-bars"></div>
+    </header>
+
+    <!-- header section ends -->
+    @RenderBody()
+    <!-- footer section starts  -->
+
+    <footer class="footer">
+
+        <div class="box-container">
+
+            <div class="box">
+                <h3>لینک های سریع</h3>
+                <a href="#"> <i class="fas fa-chevron-right"></i> خانه </a>
+                <a href="#"> <i class="fas fa-chevron-right"></i> خدمات </a>
+                <a href="#"> <i class="fas fa-chevron-right"></i> درباره </a>
+                <a href="#"> <i class="fas fa-chevron-right"></i> دکتر ها </a>
+                <a href="#"> <i class="fas fa-chevron-right"></i> رزرو </a>
+                <a href="#"> <i class="fas fa-chevron-right"></i> کامنت ها </a>
+                <a href="#"> <i class="fas fa-chevron-right"></i> وبلاگ ها </a>
+            </div>
+
+            <div class="box">
+                <h3>خدمات ما</h3>
+                <a href="#"> <i class="fas fa-chevron-right"></i> پزشک </a>
+                <a href="#"> <i class="fas fa-chevron-right"></i> مراقبت های دندان </a>
+                <a href="#"> <i class="fas fa-chevron-right"></i> تشخیص </a>
+                <a href="#"> <i class="fas fa-chevron-right"></i> خدمات </a>
+            </div>
+
+            <div class="box">
+                <h3>ارتباط با ما</h3>
+                <a href="#"> <i class="fas fa-phone"></i> +98 09908209215 </a>
+                <a href="#"> <i class="fas fa-phone"></i> +98 09212875047</a>
+                <a href="#"> <i class="fas fa-envelope"></i>mobinamoameni8@gmail.com </a>
+                <a href="#">
+                    <i class="fas fa-map-marker-alt"></i> همدان-ملایر - دانشگاه ملی ملایر
+                </a>
+            </div>
+
+            <div class="box">
+                <h3>ما را دنبال کنید</h3>
+                <a href="#"> <i class="fab fa-facebook-f"></i> facebook </a>
+                <a href="#"> <i class="fab fa-twitter"></i> twitter </a>
+                <a href="#"> <i class="fab fa-instagram"></i> instagram </a>
+                <a href="#"> <i class="fab fa-linkedin"></i> linkedin </a>
+                <div class="newsletter-form">
+                    <h4>Newsletter</h4>
+                    <p>Subscribe us for latest Collection and news.</p>
+                    <input type="text" placeholder="Your email" id="input_newsletter">
+                    <button type="button" id="button_newsletter">Submit</button>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="credit"> پروژه کارشناسی علوم کامپیوتر دانشگاه ملایر </div>
+
+    </footer>
+
+    <!-- footer section ends -->
+    @await RenderSectionAsync("Scripts", required: false)
+    <script src="~/js/site.js"></script>
+</body>
+
+</html>

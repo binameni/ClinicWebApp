@@ -1,0 +1,48 @@
+﻿@page
+@model ClinicWebApp.Pages.User.VisitReserver.VisitListReserverModel
+@{
+}
+
+<div class="visit-list-wrap">
+    <div class="date-wrap">
+
+        @foreach (var date in Model.Dates)
+        {
+            <a asp-page="VisitListReserver" asp-route-DoctorUserName="@Model.DoctorUserName" asp-route-SelectedDate=@date
+               class="date">@date</a>
+        }
+    </div>
+    <h3 class="visit-list-header">نوبت های تاریخ @Model.SelectedDate</h3>
+    <div class="list-wrap">
+        @foreach (var v in Model.Visits)
+        {
+            <div class="list-item-div">
+                <div class="list-item-title">@v.Time - @v.Title</div>
+                <div class="list-item-links">
+                    @if (v.IsTaken)
+                    {
+                        <p>این نوبت رزرو شده است</p>
+                    }
+                    else
+                    {
+                        @if (v.IsActive)
+                        {
+                            @if (v.IsFree)
+                            {
+                                <a asp-page="ReserveVisit" asp-route-SelectedDate=@Model.SelectedDate asp-route-Id=@v.Id
+                                   asp-route-DoctorUserName=@Model.DoctorUserName
+                                   class="tools-link button">رزرو</a>
+                            }
+                            else
+                            {
+                                <a asp-page="BuyVisit" asp-page-handler="Request"
+                                   asp-route-SelectedDate=@Model.SelectedDate asp-route-Id=@v.Id class="tools-link button"
+                                   asp-route-DoctorUserName=@Model.DoctorUserName>پرداخت و رزرو</a>
+                            }
+                        }
+                    }
+                </div>
+            </div>
+        }
+    </div>
+</div>

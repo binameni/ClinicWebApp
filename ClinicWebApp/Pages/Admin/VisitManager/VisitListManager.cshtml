@@ -1,0 +1,71 @@
+﻿@page
+@model ClinicWebApp.Pages.Admin.VisitManager.VisitListManagerModel
+@{
+}
+
+<div class="visit-list-wrap">
+    <div class="date-wrap">
+        @foreach (var date in Model.Dates)
+        {
+            <a asp-page="VisitListManager" asp-route-SelectedDate=@date class="date">@date</a>
+        }
+    </div>
+    <div class="tools-wrap">
+        <a asp-page="VisitGenerator" asp-route-SelectedDate=@Model.SelectedDate class="tools-link button">ساخت برنامه نوبت</a>
+        <a asp-page="AddOrEditVisit" asp-route-SelectedDate=@Model.SelectedDate asp-route-Id=0 class="tools-link button">اضافه کردن نوبت</a>
+        <a asp-page="DeleteVisit" asp-page-handler="All" asp-route-SelectedDate=@Model.SelectedDate
+           class="tools-link button">حذف همه</a>
+    </div>
+    <h3 class="visit-list-header">نوبت های تاریخ @Model.SelectedDate</h3>
+    <div class="list-wrap">
+        @foreach (var v in Model.Visits)
+        {
+            <div class="list-item-div">
+                <div class="list-item-title">@v.Time - @v.Title</div>
+                <div class="list-item-links">
+                    @if (v.IsTaken)
+                    {
+                        <p>این نوبت خریداری شده امکان تغییر ندارد</p>
+                    }
+                    else
+                    {
+                        <a asp-page="AddOrEditVisit" asp-route-SelectedDate=@Model.SelectedDate asp-route-Id=@v.Id
+                           class="tools-link button">ویرایش</a>
+                        @if (v.IsActive)
+                        {
+                            <a asp-page="ChangeActivation" asp-page-handler="Deactivate"
+                               asp-route-SelectedDate=@Model.SelectedDate asp-route-Id=@v.Id
+                               class="tools-link button">غیر فعال کردن</a>
+                        }
+                        else
+                        {
+                            <a asp-page="ChangeActivation" asp-page-handler="Activate"
+                               asp-route-SelectedDate=@Model.SelectedDate asp-route-Id=@v.Id
+                               class="tools-link button">فعال کردن</a>
+                        }
+                        <a asp-page="DeleteVisit" asp-route-SelectedDate=@Model.SelectedDate asp-route-Id=@v.Id
+                           class="tools-link button">حذف</a>
+                        @if (v.IsFree)
+                        {
+                            <form method="get">
+                                <input hidden name="Id" value="@v.Id" />
+                                <input hidden name="SelectedDate" value="@Model.SelectedDate" />
+                                <label class="price-label">قیمت:</label>
+                                <input name="Price" id="Price" value="@v.Price" class="price-input" />
+                                <input type="submit" value="ثبت قیمت" asp-page="ChangePayment" asp-page-handler="SetPayment"
+                                       asp-route-SelectedDate=@Model.SelectedDate
+                                       class="tools-link button" />
+                            </form>
+                        }
+                        else
+                        {
+                            <a asp-page="ChangePayment" asp-page-handler="SetFree"
+                               asp-route-SelectedDate=@Model.SelectedDate asp-route-Id=@v.Id
+                               class="tools-link button">حذف پرداخت</a>
+                        }
+                    }
+                </div>
+            </div>
+        }
+    </div>
+</div>

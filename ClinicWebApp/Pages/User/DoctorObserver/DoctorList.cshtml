@@ -1,0 +1,17 @@
+﻿@page
+@model ClinicWebApp.Pages.User.DoctorObserver.DoctorListModel
+@{
+}
+
+<div class="list-wrap" style="margin: 1rem 0;">
+    @foreach (var (doctorUser, doctorInfo) in Model.Doctors)
+    {
+        <div class="list-item-div">
+            <img src="@(doctorInfo.ProfileSrc ?? "/img/default_profile.png")" class="list-item-image" />
+            <div class="list-item-title">دکتر @doctorUser.Name متخصص @doctorInfo.Profession</div>
+            <div class="list-item-links">
+                <a asp-page="../VisitReserver/VisitListReserver" asp-route-DoctorUserName=@doctorUser.UserName class="tools-link button">مشاهده نوبت ها</a>
+            </div>
+        </div>
+    }
+</div>

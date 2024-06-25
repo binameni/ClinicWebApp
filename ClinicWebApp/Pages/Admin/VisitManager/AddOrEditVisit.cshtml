@@ -1,0 +1,32 @@
+﻿@page
+@model ClinicWebApp.Pages.Admin.VisitManager.EditVisitModel
+@{
+}
+
+<div class="form-wrap">
+    <form method="post" asp-page="EditVisit" asp-route-Id="@Model.Id" asp-route-SelectedDate=@Model.SelectedDate class="form">
+        <div asp-validation-summary="All" class="validation-error"></div>
+
+        <label asp-for="Title" class="label"></label>
+        <input asp-for="Title" class="input" />
+        <span asp-validation-for="Title" class="span"></span>
+
+        <label asp-for="Time" class="label"></label>
+        <input asp-for="Time" class="input" />
+        <span asp-validation-for="Time" class="span"></span>
+
+        <label asp-for="IsActive" class="label"></label>
+        <input asp-for="IsActive" class="input" />
+        <span asp-validation-for="IsActive" class="span"></span>
+
+        <label asp-for="Price" class="label"></label>
+        <input asp-for="Price" class="input" />
+        <span asp-validation-for="Price" class="span"></span>
+
+        <input type="submit" value="ذخیره" class="button" />
+
+        <div class="signup-link">
+            <a asp-page="VisitListManager" asp-route-SelectedDate=@Model.SelectedDate>برگشت به نوبت ها</a>
+        </div>
+    </form>
+</div>

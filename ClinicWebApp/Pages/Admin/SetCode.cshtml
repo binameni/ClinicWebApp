@@ -1,0 +1,17 @@
+﻿@page
+@model SetCodeModel
+@{
+}
+
+<div class="form-wrap">
+    <form asp-page="SetCode" method="post" class="form">
+        <div asp-validation-summary="All" class="validation-error"></div>
+        <label asp-for="OldCode" class="label"></label>
+        <input type="text" asp-for="OldCode" class="input" />
+        <span asp-validation-for="OldCode" class="span"></span>
+        <label asp-for="Code" class="label"></label>
+        <input type="text" asp-for="Code" class="input" />
+        <span asp-validation-for="Code" class="span"></span>
+        <input type="submit" value="ثبت کد" class="button" />
+    </form>
+</div>
