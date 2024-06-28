@@ -35,7 +35,6 @@ namespace ClinicWebApp.Extensions.StartupExtensions
             {
                 options.LoginPath = "/Account/Signin";
             });
-
         }
 
         public static void ConfigureDbContext(this IHostApplicationBuilder builder)

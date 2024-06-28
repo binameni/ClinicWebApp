@@ -24,10 +24,24 @@ html {
     overflow-x: hidden;
     scroll-padding-top: 7rem;
     scroll-behavior: smooth;
+    font-size: 10px;
+    min-height: 100%;
 }
 
 body {
     padding-top: 100px;
+    min-height: 100%;
+}
+
+    body::before {
+        display: none;
+    }
+
+.footer {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 100%;
 }
 
 section {
@@ -436,71 +450,71 @@ body:before {
     background-color: #fff;
 }
 
-.blogs .box-container {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(30rem, 1fr));
-    gap: 2rem;
-}
-
-    .blogs .box-container .box {
-        border: var(--border);
-        box-shadow: var(--box-shadow);
-        border-radius: .5rem;
-        padding: 2rem;
+    .blogs .box-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(30rem, 1fr));
+        gap: 2rem;
     }
 
-        .blogs .box-container .box .image {
-            height: 20rem;
-            overflow: hidden;
+        .blogs .box-container .box {
+            border: var(--border);
+            box-shadow: var(--box-shadow);
             border-radius: .5rem;
+            padding: 2rem;
         }
 
-            .blogs .box-container .box .image img {
-                height: 100%;
-                width: 100%;
-                object-fit: cover;
+            .blogs .box-container .box .image {
+                height: 20rem;
+                overflow: hidden;
+                border-radius: .5rem;
             }
 
-        .blogs .box-container .box:hover .image img {
-            transform: scale(1.2);
-        }
-
-        .blogs .box-container .box .content {
-            padding-top: 1rem;
-        }
-
-            .blogs .box-container .box .content .icon {
-                padding: 1rem 0;
-                display: flex;
-                align-items: center;
-                justify-content: space-between;
-            }
-
-                .blogs .box-container .box .content .icon a {
-                    font-size: 1.4rem;
-                    color: var(--light-color);
+                .blogs .box-container .box .image img {
+                    height: 100%;
+                    width: 100%;
+                    object-fit: cover;
                 }
 
-                    .blogs .box-container .box .content .icon a:hover {
-                        color: #36098d;
-                    }
-
-                    .blogs .box-container .box .content .icon a i {
-                        padding-right: .5rem;
-                        color: #36098d;
-                    }
-
-            .blogs .box-container .box .content h3 {
-                color: var(--black);
-                font-size: 3rem;
+            .blogs .box-container .box:hover .image img {
+                transform: scale(1.2);
             }
 
-            .blogs .box-container .box .content p {
-                color: var(--light-color);
-                font-size: 1.5rem;
-                line-height: 1.8;
-                padding: 1rem 0;
+            .blogs .box-container .box .content {
+                padding-top: 1rem;
             }
+
+                .blogs .box-container .box .content .icon {
+                    padding: 1rem 0;
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+                }
+
+                    .blogs .box-container .box .content .icon a {
+                        font-size: 1.4rem;
+                        color: var(--light-color);
+                    }
+
+                        .blogs .box-container .box .content .icon a:hover {
+                            color: #36098d;
+                        }
+
+                        .blogs .box-container .box .content .icon a i {
+                            padding-right: .5rem;
+                            color: #36098d;
+                        }
+
+                .blogs .box-container .box .content h3 {
+                    color: var(--black);
+                    font-size: 3rem;
+                }
+
+                .blogs .box-container .box .content p {
+                    color: var(--light-color);
+                    font-size: 1.5rem;
+                    line-height: 1.8;
+                    padding: 1rem 0;
+                }
 
 .footer .box-container {
     /*display: grid;
