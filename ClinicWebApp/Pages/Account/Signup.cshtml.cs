@@ -33,11 +33,13 @@ namespace ClinicWebApp.Pages.Account
         [BindProperty]
         [Required(ErrorMessage = "رمز خود را وارد کنید")]
         [Display(Name = "رمز ورود")]
+        [DataType(DataType.Password)]
         public string Password { get; set; }
 
         [BindProperty]
         [Required(ErrorMessage = "تکرار رمز را وارد کنید")]
         [Display(Name = "تکرار رمز ورود")]
+        //[Compare(nameof(this.ConfirmPassword), ErrorMessage = "رمز با تکرار آن برابر نیست")]
         public string ConfirmPassword { get; set; }
 
         [FromQuery]
