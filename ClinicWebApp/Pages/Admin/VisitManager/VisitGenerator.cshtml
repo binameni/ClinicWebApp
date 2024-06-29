@@ -2,15 +2,15 @@
 @model ClinicWebApp.Pages.Admin.VisitManager.VisitGeneratorModel
 @{
 }
-@* <script src="https://cdn.jsdelivr.net/timepicker.js/latest/timepicker.min.js"></script>
-<link href="https://cdn.jsdelivr.net/timepicker.js/latest/timepicker.min.css" rel="stylesheet" /> *@
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 
 <div class="form-wrap">
     <form asp-page="VisitGenerator" asp-route-SelectedDate=@Model.SelectedDate method="post" class="form">
         <div asp-validation-summary="All" class="validation-error"></div>
 
         <label asp-for="VisitGap" class="label"></label>
-        <input asp-for="VisitGap" class="input" /> @* id="time" *@ @*How to make it 24 hour format*@
+        <input asp-for="VisitGap" class="input" />
         <span asp-validation-for="VisitGap" class="span"></span>
 
         <label asp-for="StartTime" class="label"></label>
@@ -31,17 +31,20 @@
 
         <input type="submit" value="ساخت نوبت" class="button" />
     </form>
-
-    @* <script>
-    var timepicker = new TimePicker('time', {
-    lang: 'en',
-    theme: 'dark'
-    });
-    timepicker.on('change', function (evt) {
-
-    var value = (evt.hour || '00') + ':' + (evt.minute || '00');
-    evt.element.value = value;
-
-    });
-    </script> *@
 </div>
+
+<script>
+    flatpickr("#StartTime", {
+        enableTime: true,
+        noCalendar: true,
+        dateFormat: "H:i",
+        time_24hr: true
+    });
+
+    flatpickr("#StopTime", {
+        enableTime: true,
+        noCalendar: true,
+        dateFormat: "H:i",
+        time_24hr: true
+    });
+</script>

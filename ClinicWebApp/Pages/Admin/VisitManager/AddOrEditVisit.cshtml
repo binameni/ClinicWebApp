@@ -2,6 +2,8 @@
 @model ClinicWebApp.Pages.Admin.VisitManager.EditVisitModel
 @{
 }
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 
 <div class="form-wrap">
     <form method="post" asp-page="EditVisit" asp-route-Id="@Model.Id" asp-route-SelectedDate=@Model.SelectedDate class="form">
@@ -30,3 +32,12 @@
         </div>
     </form>
 </div>
+
+<script>
+    flatpickr("#Time", {
+        enableTime: true,
+        noCalendar: true,
+        dateFormat: "H:i",
+        time_24hr: true
+    });
+</script>
