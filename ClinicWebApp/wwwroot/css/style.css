@@ -45,6 +45,12 @@ body {
     background-color: skyblue;
 }
 
+@media (min-height:100px){
+    .footer {
+        position: unset;
+    }
+}
+
 section {
     padding: 2rem 9%;
 }
