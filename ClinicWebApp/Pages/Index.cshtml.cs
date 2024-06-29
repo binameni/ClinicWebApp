@@ -19,6 +19,9 @@ namespace ClinicWebApp.Pages
         [BindProperty]
         public List<(ApplicationUser, Doctor)> Doctors { get; set; } = new();
 
+        [BindProperty]
+        public int DoctorCount { get; set; }
+
         public async Task OnGet()
         {
             var doctors = (await _userManager.GetUsersInRoleAsync(ApplicationRoles.Doctor)).Take(3).ToList();
@@ -31,6 +34,8 @@ namespace ClinicWebApp.Pages
                     Doctors.Add((doctors[i], doctorsInfo[i]));
                 }
             }
+
+            DoctorCount = await _doctorRepository.CountAllAsync();
         }
     }
 }

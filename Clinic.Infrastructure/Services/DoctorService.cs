@@ -1,6 +1,8 @@
 ﻿using Clinic.Core.Domain.Entities;
+using Clinic.Core.Domain.IdentityEntities;
 using Clinic.Core.Domain.RepositoryContracts;
 using Clinic.Infrastructure.DbContext;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using System;
@@ -14,15 +16,22 @@ namespace Clinic.Infrastructure.Services
     public class DoctorService : IDoctorRepository
     {
         private readonly ApplicationDbContext _context;
+        private readonly UserManager<ApplicationUser> _userManager;
 
-        public DoctorService(ApplicationDbContext context)
+        public DoctorService(ApplicationDbContext context, UserManager<ApplicationUser> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
 
         public ValueTask<EntityEntry<Doctor>> AddAsync(Doctor entity)
         {
             return _context.Doctors.AddAsync(entity);
+        }
+
+        public async Task<int> CountAllAsync()
+        {
+            return (await _userManager.GetUsersInRoleAsync(ApplicationRoles.Doctor)).Count;
         }
 
         public async Task<bool> Exist(string username)

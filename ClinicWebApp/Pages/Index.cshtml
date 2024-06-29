@@ -25,8 +25,8 @@
 
     <div class="icons">
         <i class="fas fa-user-md"></i>
-        <h3>1</h3>
-        <p>دندانپزشک فعال</p>
+        <h3>@Model.DoctorCount</h3>
+        <p>پزشکان فعال</p>
     </div>
 
     <div class="icons">
@@ -62,7 +62,7 @@
             <i class="fas fa-user-md"></i>
             <h3>پزشکان متخصص</h3>
             <p>پزشکان معتبر در خدمت شما خواهند بود.</p>
-            <a href="#" class="btn"> بیشتر <span class="fas fa-chevron-right"></span> </a>
+            <a asp-page="./User/DoctorObserver/DoctorList" class="btn"> بیشتر <span class="fas fa-chevron-right"></span> </a>
         </div>
 
         <div class="box">
