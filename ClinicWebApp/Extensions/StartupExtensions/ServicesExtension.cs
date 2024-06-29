@@ -2,7 +2,6 @@
 using Clinic.Core.Domain.RepositoryContracts;
 using Clinic.Infrastructure.DbContext;
 using Clinic.Infrastructure.Services;
-using ClinicWebApp.Validators.PasswordValidators;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
@@ -19,19 +18,15 @@ namespace ClinicWebApp.Extensions.StartupExtensions
             builder.Services.AddScoped<IDoctorRepository, DoctorService>();
             builder.Services.AddTransient<IUserVisitRepository, UserVisitService>();
             builder.Services.AddTransient<IDoctorVisitRepository, DoctorVisitService>();
-            //builder.Services.AddTransient<SimplePasswordValidator>();
         }
 
         public static void ConfigureUserCredentials(this IHostApplicationBuilder builder)
         {
-            //builder.Services.AddAuthentication().AddCookie(IdentityConstants.ApplicationScheme)
-            //    .AddBearerToken(IdentityConstants.BearerScheme);
             builder.Services.AddIdentity<ApplicationUser, ApplicationRole>()
                 .AddErrorDescriber<PersianIdentityErrorDescriber>()
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders();
 
-            //.AddPasswordValidator<SimplePasswordValidator>(); // error
             builder.Services.Configure<IdentityOptions>(options =>
             {
                 options.Password.RequireDigit = false;

@@ -47,7 +47,7 @@ body {
     
 }
 
-@media (min-height:914px) {
+@media (max-height:50%) {
     .footer {
         position: unset;
     }
