@@ -65,6 +65,7 @@ section {
     color: var(black --);
     font-size: 5rem;
     letter-spacing: .4rem;
+   
 }
 
     .heading span {
@@ -414,12 +415,14 @@ body:before {
     }
 
 .text {
-    font-size: 1rem;
+    font-size: 2rem;
     width: 300px;
     overflow-wrap: break-word;
     word-wrap: break-word;
     word-break: break-word;
     white-space: wrap; /* Prevent text from wrapping to the next line */
+    font-family:Arial;
+    margin:auto;
 }
 
 .box1 .stars i {
