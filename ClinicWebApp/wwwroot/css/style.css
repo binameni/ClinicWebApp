@@ -29,7 +29,7 @@ html {
 }
 
 body {
-    padding-top: 100px;
+    padding-top: 80px;
     min-height: 100%;
 }
 
@@ -254,8 +254,7 @@ body:before {
     align-items: center;
     flex-wrap: wrap;
     gap: 2rem;
-    background-color:skyblue;
-    background-size:cover;
+    
 }
 
     .about .row .image {
