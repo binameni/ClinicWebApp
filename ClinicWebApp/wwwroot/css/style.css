@@ -1,4 +1,4 @@
-
+﻿
 :root {
     --blue: #36098d;
     --black: #444;
@@ -441,18 +441,20 @@ body:before {
 
 .review button {
     margin: 5px;
-    padding: 10px 30px;
+    padding: 15px 50px;
     cursor: pointer;
     background-color: #34C56C;
     color: white;
+    font-size: 18px;
+    position:fixed;
 }
 
 
 
 .review .reviewBottom {
-    display: flex;
-    justify-content: end;
-    align-items: center;
+    display:block;
+    text-align:center;
+    
 }
 
 .blogs {
