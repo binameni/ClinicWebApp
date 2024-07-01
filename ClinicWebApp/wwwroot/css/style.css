@@ -38,7 +38,7 @@ body {
     }
 
 .footer {
-    position: absolute;
+    position: fixed;
     bottom: 0;
     right: 0;
     width: 100%;
@@ -254,10 +254,13 @@ body:before {
     align-items: center;
     flex-wrap: wrap;
     gap: 2rem;
+    background-color:skyblue;
+    background-size:cover;
 }
 
     .about .row .image {
         flex: 1 1 45rem;
+       
     }
 
         .about .row .image img {
