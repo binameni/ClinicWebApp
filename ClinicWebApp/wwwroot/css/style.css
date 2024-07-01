@@ -187,6 +187,7 @@ body:before {
     justify-content: space-between;
     padding-top: 6rem;
     padding-bottom: 6rem;
+    
 }
 
     .icons-container .icons {
@@ -220,6 +221,7 @@ body:before {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(27rem, 1fr));
     gap: 2rem;
+    background-color: skyblue;
 }
 
     .services .box-container .box {
@@ -288,6 +290,7 @@ body:before {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(30rem, 1fr));
     gap: 2rem;
+    background-color: skyblue;
 }
 
     .doctors .box-container .box {
@@ -417,7 +420,7 @@ body:before {
     }
 
 .text {
-    font-size: 2rem;
+    font-size: 1.5rem;
     width: 300px;
     overflow-wrap: break-word;
     word-wrap: break-word;
