@@ -13,5 +13,5 @@ Key Features:
 Why This Application?
 Managing a clinic involves handling numerous appointments, patient records, and administrative tasks. This application automates these processes, reducing manual effort and minimizing errors. By leveraging cutting-edge technologies, it provides a reliable and user-friendly interface that enhances operational efficiency and patient satisfaction.
 
-Contact
+Contact:
 For any questions or support, please reach out to ami00mou@gmail.com or create an issue in this repository.
