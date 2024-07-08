@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Clinic.Core.Domain.IdentityEntities;
+using Microsoft.AspNetCore.Identity;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,6 +11,6 @@ namespace Clinic.Core.Domain.RepositoryContracts
     public interface IUserVisitRepository
     {
         Task ReserveVisit(int visitId, string userName);
-        Task ShiftVisit(int oldVisitId, int newVisitId, string userName);
+        Task<ApplicationUser> GetUserAndVisits(string username);
     }
 }

@@ -3,6 +3,7 @@ using Clinic.Core.Domain.IdentityEntities;
 using Clinic.Core.Domain.RepositoryContracts;
 using Clinic.Infrastructure.DbContext;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Collections.Generic;
@@ -25,6 +26,11 @@ namespace Clinic.Infrastructure.Services
             _visitRepository = visitRepository;
         }
 
+        public Task<ApplicationUser> GetUserAndVisits(string username)
+        {
+            return _context.Users.Include(x=>x.Visits).FirstOrDefaultAsync(x=>x.UserName == username);
+        }
+
         public async Task ReserveVisit(int visitId, string userName)
         {
             ApplicationUser user = await _userManager.FindByNameAsync(userName);
@@ -41,11 +47,6 @@ namespace Clinic.Infrastructure.Services
             await _userManager.UpdateAsync(user);
 
             await _context.SaveChangesAsync();
-        }
-
-        public Task ShiftVisit(int oldVisitId, int newVisitId, string userName)
-        {
-            throw new NotImplementedException();
         }
     }
 }
