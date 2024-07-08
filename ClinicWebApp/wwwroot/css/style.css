@@ -1,4 +1,4 @@
-
+﻿
 :root {
     --blue: #36098d;
     --black: #444;
@@ -29,7 +29,7 @@ html {
 }
 
 body {
-    padding-top: 100px;
+    padding-top: 80px;
     min-height: 100%;
 }
 
@@ -38,7 +38,7 @@ body {
     }
 
 .footer {
-    position: absolute;
+    position: fixed;
     bottom: 0;
     right: 0;
     width: 100%;
@@ -65,6 +65,7 @@ section {
     color: var(black --);
     font-size: 5rem;
     letter-spacing: .4rem;
+   
 }
 
     .heading span {
@@ -186,6 +187,7 @@ body:before {
     justify-content: space-between;
     padding-top: 6rem;
     padding-bottom: 6rem;
+    
 }
 
     .icons-container .icons {
@@ -219,6 +221,7 @@ body:before {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(27rem, 1fr));
     gap: 2rem;
+    background-color: skyblue;
 }
 
     .services .box-container .box {
@@ -253,10 +256,12 @@ body:before {
     align-items: center;
     flex-wrap: wrap;
     gap: 2rem;
+    
 }
 
     .about .row .image {
         flex: 1 1 45rem;
+       
     }
 
         .about .row .image img {
@@ -285,6 +290,7 @@ body:before {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(30rem, 1fr));
     gap: 2rem;
+    background-color: skyblue;
 }
 
     .doctors .box-container .box {
@@ -414,12 +420,14 @@ body:before {
     }
 
 .text {
-    font-size: 1rem;
+    font-size: 1.5rem;
     width: 300px;
     overflow-wrap: break-word;
     word-wrap: break-word;
     word-break: break-word;
     white-space: wrap; /* Prevent text from wrapping to the next line */
+    font-family:Arial;
+    margin:auto;
 }
 
 .box1 .stars i {
@@ -438,18 +446,20 @@ body:before {
 
 .review button {
     margin: 5px;
-    padding: 10px 30px;
+    padding: 15px 50px;
     cursor: pointer;
     background-color: #34C56C;
     color: white;
+    font-size: 18px;
+    position:fixed;
 }
 
 
 
 .review .reviewBottom {
-    display: flex;
-    justify-content: end;
-    align-items: center;
+    display:block;
+    text-align:center;
+    
 }
 
 .blogs {
