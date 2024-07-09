@@ -33,8 +33,18 @@ namespace Clinic.Infrastructure.Services
 
         public async Task ReserveVisit(int visitId, string userName)
         {
-            ApplicationUser user = await _userManager.FindByNameAsync(userName);
+            ApplicationUser user = await _context.Users.Include(x => x.Visits).FirstOrDefaultAsync(x => x.UserName == userName);
             Visit visit = await _visitRepository.FindAsync(visitId);
+
+            if (visit == null)
+            {
+                return;
+            }
+
+            if (!visit.IsActive || visit.IsTaken)
+            {
+                return;
+            }
 
             if (user.Visits.IsNullOrEmpty())
             {
