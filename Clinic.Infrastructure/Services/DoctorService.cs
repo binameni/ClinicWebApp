@@ -54,6 +54,13 @@ namespace Clinic.Infrastructure.Services
             return result;
         }
 
+        public async Task RemoveAsync(string username)
+        {
+            Doctor doctor = await _context.Doctors.FirstOrDefaultAsync(x => x.DoctorNumber == username);
+            _context.Doctors.Remove(doctor);
+            await _context.SaveChangesAsync();
+        }
+
         public Task SaveAsync()
         {
             return _context.SaveChangesAsync();

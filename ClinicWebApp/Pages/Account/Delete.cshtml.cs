@@ -1,4 +1,5 @@
-﻿using Clinic.Core.Domain.IdentityEntities;
+﻿using Clinic.Core.Domain.Entities;
+using Clinic.Core.Domain.IdentityEntities;
 using Clinic.Core.Domain.RepositoryContracts;
 using ClinicWebApp.Pages.Shared;
 using Microsoft.AspNetCore.Authorization;
@@ -12,11 +13,13 @@ namespace ClinicWebApp.Pages.Account
     [Authorize]
     public class DeleteModel(UserManager<ApplicationUser> userManager,
         SignInManager<ApplicationUser> signInManager,
-        IUserVisitRepository userVisitRepository) : PageModelWrapper
+        IUserVisitRepository userVisitRepository,
+        IDoctorRepository doctorRepository) : PageModelWrapper
     {
         private readonly UserManager<ApplicationUser> _userManager = userManager;
         private readonly SignInManager<ApplicationUser> _signInManager = signInManager;
         private readonly IUserVisitRepository _userVisitRepository = userVisitRepository;
+        private readonly IDoctorRepository _doctorRepository = doctorRepository;
 
         public async Task<IActionResult> OnGet()
         {
@@ -24,6 +27,10 @@ namespace ClinicWebApp.Pages.Account
             if (user.Visits.IsNullOrEmpty())
             {
                 await _signInManager.SignOutAsync();
+                if (await _doctorRepository.Exist(user.UserName))
+                {
+                    await _doctorRepository.RemoveAsync(user.UserName);
+                }
                 await _userManager.DeleteAsync(user);
                 this.SetPrompt("حساب کاربری با موفقیت حذف شد");
                 return RedirectToPage("../Index");

@@ -17,5 +17,6 @@ namespace Clinic.Core.Domain.RepositoryContracts
         Task SaveAsync();
         Task<bool> Exist(string username);
         Task<int> CountAllAsync();
+        Task RemoveAsync(string username);
     }
 }
