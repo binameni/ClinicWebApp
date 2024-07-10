@@ -36,5 +36,12 @@ namespace ClinicWebApp.Extensions.CalendarExtensions
         {
             return dt.ToString("HH:mm");
         }
+
+        public static TimeSpan ToTimeSpan(this DateTime dateTime)
+        {
+            TimeZoneInfo tehranTimeZone = TimeZoneInfo.FindSystemTimeZoneById("Iran Standard Time");
+            DateTime tehranTime = TimeZoneInfo.ConvertTime(DateTime.Now, tehranTimeZone);
+            return new TimeSpan(tehranTime.Hour, tehranTime.Minute, tehranTime.Second);
+        }
     }
 }

@@ -34,6 +34,20 @@ namespace ClinicWebApp.Pages.User.VisitReserver
                 SelectedDate = Dates.FirstOrDefault();
             }
             Visits.AddRange(await _doctorVisitRepository.GetVisitsAsync(SelectedDate, DoctorUserName));
+            //Visits.ForEach(x =>
+            //{
+            //    if (TimeSpan.Parse(x.Time) < DateTime.UtcNow.ToTimeSpan())
+            //    {
+            //        x.IsActive = false;
+            //    }
+            //});
+            foreach (var x in Visits)
+            {
+                if (TimeSpan.Parse(x.Time) < DateTime.UtcNow.ToTimeSpan())
+                {
+                    x.IsActive = false;
+                }
+            }
         }
     }
 }
