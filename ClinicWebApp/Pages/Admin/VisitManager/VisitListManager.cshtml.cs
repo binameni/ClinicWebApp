@@ -12,9 +12,9 @@ using System.Globalization;
 namespace ClinicWebApp.Pages.Admin.VisitManager
 {
     [Authorize(Roles = nameof(ApplicationRoles.Doctor))]
-    public class VisitListManagerModel(IVisitRepository visitRepository) : PageModelWrapper
+    public class VisitListManagerModel(IDoctorVisitRepository doctorVisitRepository) : PageModelWrapper
     {
-        private readonly IVisitRepository _visitRepository = visitRepository;
+        private readonly IDoctorVisitRepository _doctorVisitRepository = doctorVisitRepository;
 
         public List<string> Dates { get; set; } = new();
 
@@ -40,7 +40,7 @@ namespace ClinicWebApp.Pages.Admin.VisitManager
 
             if (Visits.IsNullOrEmpty())
             {
-                var todayVisit = await _visitRepository.GetAsync(SelectedDate);
+                var todayVisit = await _doctorVisitRepository.GetVisitsAsync(SelectedDate, User.Identity.Name);
                 if (todayVisit != null)
                 {
                     Visits.AddRange(todayVisit);
