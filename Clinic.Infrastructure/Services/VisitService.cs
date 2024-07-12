@@ -51,6 +51,33 @@ namespace Clinic.Infrastructure.Services
             await this.SaveChangesAsync();
         }
 
+        public async Task ClearBefore(DateTime date)
+        {
+            int count = await this.CountAllAsync();
+            int cycle = count / 10;
+            if (count % 10 > 0)
+            {
+                cycle++;
+            }
+
+            for (int i = 0; i < cycle; i++)
+            {
+                List<Visit> visits = await _context.Visits.Skip(i * 10).Take(10).ToListAsync();
+                visits = visits.Where(x => DateTime.Parse(x.Date) < date).ToList();
+                if (visits.Count <= 0)
+                {
+                    continue;
+                }
+                _context.Visits.RemoveRange(visits);
+            }
+            await this.SaveChangesAsync();
+        }
+
+        public Task<int> CountAllAsync()
+        {
+            return _context.Visits.CountAsync();
+        }
+
         public async Task DeactivateVisitAsync(int id)
         {
             Visit visit = await this.FindAsync(id);

@@ -37,11 +37,17 @@ namespace ClinicWebApp.Extensions.CalendarExtensions
             return dt.ToString("HH:mm");
         }
 
-        public static TimeSpan ToTimeSpan(this DateTime dateTime)
+        public static TimeSpan ToPersianTimeSpan(this DateTime dateTime)
         {
             TimeZoneInfo tehranTimeZone = TimeZoneInfo.FindSystemTimeZoneById("Iran Standard Time");
             DateTime tehranTime = TimeZoneInfo.ConvertTime(DateTime.Now, tehranTimeZone);
             return new TimeSpan(tehranTime.Hour, tehranTime.Minute, tehranTime.Second);
         }
+
+        //public static DateTime TOUtcDateTime(this DateTime dateTime)
+        //{
+        //    PersianCalendar pc = new PersianCalendar();
+        //    return new DateTime(dateTime.Year, dateTime.Month, dateTime.Day, pc);
+        //}
     }
 }

@@ -2,10 +2,12 @@
 using Clinic.Core.Domain.RepositoryContracts;
 using Clinic.Infrastructure.DbContext;
 using Clinic.Infrastructure.Services;
+using ClinicWebApp.BackgroundJobs.Visits;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using Quartz;
 
 namespace ClinicWebApp.Extensions.StartupExtensions
 {
@@ -50,6 +52,18 @@ namespace ClinicWebApp.Extensions.StartupExtensions
             {
                 options.UseSqlServer(builder.Configuration.GetConnectionString("LocalDB"));
             });
+        }
+
+        public static void ConfigureQuartz(this IHostApplicationBuilder builder)
+        {
+            builder.Services.AddQuartz(options =>
+            {
+                options.UseMicrosoftDependencyInjectionJobFactory();
+            });
+
+            builder.Services.AddQuartzHostedService();
+
+            builder.Services.ConfigureOptions<VisitCleaningBackgroundJobSetup>();
         }
     }
 }

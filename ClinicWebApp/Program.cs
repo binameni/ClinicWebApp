@@ -12,6 +12,7 @@ builder.Services.AddRazorPages();
 
 builder.ConfigureUserCredentials();
 builder.ConfigureServices();
+builder.ConfigureQuartz();
 
 
 var app = builder.Build();

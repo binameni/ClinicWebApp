@@ -31,7 +31,9 @@ namespace Clinic.Core.Domain.RepositoryContracts
         Task<bool> ExistAny(string date);
         Task Clear();
         Task Clear(string date);
+        Task ClearBefore(DateTime date);
         Task SetPayment(int id, int price);
         Task SetFree(int id);
+        Task<int> CountAllAsync();
     }
 }
