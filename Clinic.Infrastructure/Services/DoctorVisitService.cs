@@ -34,7 +34,7 @@ namespace Clinic.Infrastructure.Services
         {
             ApplicationUser doctor = await _userManager.Users.Include(x => x.Visits)
                 .FirstOrDefaultAsync(x => x.UserName == doctorUserName);
-            return doctor.Visits.Where(x => x.Date == date).ToList();
+            return doctor.Visits.OrderBy(x => DateTime.Parse(x.Time)).Where(x => x.Date == date).ToList();
         }
     }
 }

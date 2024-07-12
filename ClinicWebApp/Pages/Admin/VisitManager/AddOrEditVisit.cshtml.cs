@@ -45,6 +45,11 @@ namespace ClinicWebApp.Pages.Admin.VisitManager
         [Display(Name = "هزینه")]
         public int Price { get; set; } = 0;
 
+        [BindProperty]
+        [Required(ErrorMessage = "وارد کردن مدت زمان نوبت اجباری است")]
+        [Display(Name = "مدت زمان نوبت")]
+        public double TimeDifference { get; set; } = 15;
+
         public async Task OnGet()
         {
             if (Id != 0)
@@ -55,6 +60,7 @@ namespace ClinicWebApp.Pages.Admin.VisitManager
                 IsActive = visit.IsActive;
                 Price = visit.Price;
                 SelectedDate = visit.Date;
+                TimeDifference = visit.TimeDifference;
             }
         }
 
@@ -70,6 +76,7 @@ namespace ClinicWebApp.Pages.Admin.VisitManager
                 visit.Title = Title;
                 visit.Time = Time;
                 visit.IsActive = IsActive;
+                visit.TimeDifference = TimeDifference;
                 if (Price > 0)
                 {
                     visit.IsFree = false;

@@ -9,6 +9,10 @@
     <form method="post" asp-page="EditVisit" asp-route-Id="@Model.Id" asp-route-SelectedDate=@Model.SelectedDate class="form">
         <div asp-validation-summary="All" class="validation-error"></div>
 
+        <label asp-for="TimeDifference" class="label"></label>
+        <input asp-for="TimeDifference" class="input" />
+        <span asp-validation-for="TimeDifference" class="span"></span>
+
         <label asp-for="Title" class="label"></label>
         <input asp-for="Title" class="input" />
         <span asp-validation-for="Title" class="span"></span>

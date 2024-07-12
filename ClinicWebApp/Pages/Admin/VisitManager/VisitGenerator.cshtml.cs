@@ -24,7 +24,7 @@ namespace ClinicWebApp.Pages.Admin.VisitManager
         [BindProperty]
         [Required(ErrorMessage = "وارد کردن فاصله نوبت ها اجباری است")]
         [Display(Name = "فاصله نوبت ها")]
-        public int VisitGap { get; set; } = 15;
+        public double TimeDifference { get; set; } = 15;
 
         [BindProperty]
         [Required(ErrorMessage = "وارد کردن شروع شیفت کاری اجباری است")]
@@ -69,8 +69,9 @@ namespace ClinicWebApp.Pages.Admin.VisitManager
                             Title = Title,
                             IsFree = Price == 0,
                             Price = Price,
+                            TimeDifference = TimeDifference,
                         });
-                        currentDate = currentDate.AddMinutes(VisitGap);
+                        currentDate = currentDate.AddMinutes(TimeDifference);
                     }
                     await _visitRepository.AddVisitAsync(visits);
                     await _visitRepository.SaveChangesAsync();

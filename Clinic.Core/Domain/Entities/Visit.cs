@@ -36,5 +36,8 @@ namespace Clinic.Core.Domain.Entities
         public int Price { get; set; }
 
         public List<ApplicationUser>? Users { get; set; }
+
+        [DefaultValue(15)]
+        public double TimeDifference { get; set;}
     }
 }

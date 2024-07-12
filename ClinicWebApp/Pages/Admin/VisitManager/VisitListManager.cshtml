@@ -21,7 +21,7 @@
         @foreach (var v in Model.Visits)
         {
             <div class="list-item-div">
-                <div class="list-item-title">@v.Time - @v.Title</div>
+                <div class="list-item-title">@v.Time - @v.Title<br />مدت نوبت: @v.TimeDifference دقیقه</div>
                 <div class="list-item-links">
                     @if (v.IsTaken)
                     {
