@@ -11,7 +11,8 @@ namespace ClinicWebApp.BackgroundJobs.Visits
             options.AddJob<VisitCleaningBackgroundJob>(jobBuiler => jobBuiler.WithIdentity(jobKey))
                 .AddTrigger(trigger => trigger.ForJob(jobKey)
                 .StartNow()
-                .WithSchedule(CronScheduleBuilder.DailyAtHourAndMinute(0,0)));
+                .WithSchedule(CronScheduleBuilder.DailyAtHourAndMinute(21,35)
+                .InTimeZone(TimeZoneInfo.FindSystemTimeZoneById("Asia/Tehran"))));
         }
     }
 }
