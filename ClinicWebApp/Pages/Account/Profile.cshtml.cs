@@ -54,11 +54,15 @@ namespace ClinicWebApp.Pages.Account
         [BindProperty]
         [Display(Name = "پروفایل")]
         public IFormFile? Profile { get; set; }
+
+        [BindProperty]
         public string? ProfileAddress { get; set; }
 
         [BindProperty]
         [Display(Name = "عکس ها")]
         public List<IFormFile>? Pictures { get; set; } = new List<IFormFile>();
+
+        [BindProperty]
         public List<string>? PicturesAddresses { get; set; } = new List<string>();
 
         [BindProperty]
@@ -95,13 +99,13 @@ namespace ClinicWebApp.Pages.Account
         {
             if (!ModelState.IsValid)
             {
-                return RedirectToPage("Profile");
+                return Page();
             }
 
-            if (!int.TryParse(PhoneNumber, out var temp2))
+            if (!ulong.TryParse(PhoneNumber, out var temp2))
             {
                 ModelState.AddModelError(nameof(PhoneNumber), "لطفا در قسمت شماره موبایل عدد وارد کنید");
-                return RedirectToPage("Profile");
+                return Page();
             }
 
             // Receives user from database
@@ -120,7 +124,7 @@ namespace ClinicWebApp.Pages.Account
                     ModelState.AddModelError("", error.Description);
                 }
                 this.SetPrompt("فرایند ذخیره سازی اطلاعات با مشکل مواجه شد");
-                return RedirectToPage("Profile");
+                return Page();
             }
 
             // Check if the user has Doctor role to do further updates
@@ -148,12 +152,13 @@ namespace ClinicWebApp.Pages.Account
                     {
                         doctorInfo.ProfileSrc = saveResult.SrcPath;
                         doctorInfo.ProfilePhysical = saveResult.PhysicalPath;
+                        this.ProfileAddress = doctorInfo.ProfileSrc;
                     }
                     else
                     {
                         ModelState.AddModelError("", saveResult.Error);
                         this.SetPrompt("فرایند ذخیره سازی پروفایل با مشکل مواجه شد");
-                        return RedirectToPage("Profile");
+                        return Page();
                     }
                 }
 
@@ -191,6 +196,9 @@ namespace ClinicWebApp.Pages.Account
 
                         doctorInfo.PicturesSrc.RemoveRange(0, diff);
                         doctorInfo.PicturesPhysical.RemoveRange(0, diff);
+
+                        this.PicturesAddresses.Clear();
+                        this.PicturesAddresses.AddRange(doctorInfo.PicturesSrc);
                     }
 
                     // Loops through the chosen pictures
@@ -208,7 +216,7 @@ namespace ClinicWebApp.Pages.Account
                             ModelState.AddModelError("", saveResult.Error);
 
                             this.SetPrompt("فرایند ذخیره سازی عکس ها با مشکل مواجه شد");
-                            return RedirectToPage("Profile");
+                            return Page();
                         }
                     }
                 }
@@ -218,7 +226,7 @@ namespace ClinicWebApp.Pages.Account
             }
 
             this.SetPrompt("ذخیره اطلاعات با موفقیت انجام شد");
-            return RedirectToPage("Profile");
+            return Page();
         }
     }
 }

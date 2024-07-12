@@ -41,11 +41,16 @@
             <span asp-validation-for="Profession" class="span"></span>
 
             <label asp-for="Profile" class="label"></label>
+            <label class="label" style="color: red;">
+                عکس ها ممکن است بخاطر کش مرورگر به مشکل بخورد.<br />
+                در صورت بروز مشکل لطفا از منوی سایت بروی پروفایل کلیک کنید.
+            </label>
             @if (Model.ProfileAddress != null)
             {
                 <div class="form-image-container">
                     <img src=@Model.ProfileAddress style="width: 100%;" />
                 </div>
+                <input asp-for="ProfileAddress" hidden readonly />
             }
             <input type="file" asp-for="Profile" class="input" />
             <span asp-validation-for="Profile" class="span"></span>
@@ -60,6 +65,10 @@
                         <img src="@address" style="width: 100%;" />
                     }
                 </div>
+                for (int i = 0; i < Model.PicturesAddresses.Count; i++)
+                {
+                    <input asp-for="PicturesAddresses[i]" hidden readonly />
+                }
             }
             <input type="file" multiple asp-for="Pictures" class="input" />
             <span asp-validation-for="Pictures" class="span"></span>
@@ -76,7 +85,7 @@
             else
             {
                 <a asp-page="../Admin/SetupCode">گرفتن دسترسی دکتر</a>
-                <bt />
+                <br />
             }
             <a asp-page="Delete" style="color: red;" onclick="return confirm('آیا از حذف حساب مطمئن هستید؟')">حذف حساب</a>
         </div>
