@@ -118,7 +118,7 @@
         @foreach (var (doctorUser, doctorInfo) in Model.Doctors)
         {
             <a asp-page="./User/DoctorObserver/DoctorList" class="box">
-                <img src=@doctorInfo.ProfileSrc alt=@doctorUser.Name>
+                <img src="@(doctorInfo.ProfileSrc ?? "/img/default_profile.png")" alt=@doctorUser.Name>
                 <h3>@doctorUser.Name</h3>
                 <span>@doctorInfo.Profession</span>
             </a>
