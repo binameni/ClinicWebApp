@@ -1,4 +1,4 @@
-using Clinic.Core.Domain.Entities;
+﻿using Clinic.Core.Domain.Entities;
 using Clinic.Core.Domain.IdentityEntities;
 using Clinic.Core.Domain.RepositoryContracts;
 using ClinicWebApp.Pages.Shared;
@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.IdentityModel.Tokens;
+using System.Net.Mail;
+using System.Net;
 
 namespace ClinicWebApp.Pages
 {

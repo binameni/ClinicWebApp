@@ -30,6 +30,17 @@ namespace Clinic.Infrastructure.Services
             return doctor.Visits.Select(x => x.Date).Distinct().ToList();
         }
 
+        public Task<List<ApplicationUser>> GetDoctorsPatients(string username)
+        {
+            return _context.Users
+                .Where(user => user.UserName == username && user.Visits.Any(visit => !visit.IsFree))
+                .SelectMany(user => user.Visits)
+                .SelectMany(visit => visit.Users)
+                .Where(user => user.DoctorInfo == null)
+                .Distinct()
+                .ToListAsync();
+        }
+
         public async Task<List<Visit>> GetVisitsAsync(string date, string doctorUserName)
         {
             ApplicationUser doctor = await _userManager.Users.Include(x => x.Visits)

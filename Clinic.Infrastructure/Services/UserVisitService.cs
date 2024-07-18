@@ -28,7 +28,7 @@ namespace Clinic.Infrastructure.Services
 
         public Task<ApplicationUser> GetUserAndVisits(string username)
         {
-            return _context.Users.Include(x=>x.Visits).FirstOrDefaultAsync(x=>x.UserName == username);
+            return _context.Users.Include(x => x.Visits).FirstOrDefaultAsync(x => x.UserName == username);
         }
 
         public async Task ReserveVisit(int visitId, string userName)
@@ -50,13 +50,13 @@ namespace Clinic.Infrastructure.Services
             {
                 user.Visits = new List<Visit>();
             }
-            user.Visits.Append(visit);
+            user.Visits.Add(visit);
             visit.IsTaken = true;
 
             _visitRepository.Update(visit);
-            await _userManager.UpdateAsync(user);
-
             await _context.SaveChangesAsync();
+
+            await _userManager.UpdateAsync(user);
         }
     }
 }

@@ -1,9 +1,10 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
+    <!--<EnvironmentName>Development</EnvironmentName>-->
   </PropertyGroup>
 
   <ItemGroup>
@@ -13,7 +14,6 @@
     </PackageReference>
     <PackageReference Include="Quartz.Extensions.Hosting" Version="3.11.0" />
     <PackageReference Include="System.Text.Json" Version="8.0.4" />
-    <PackageReference Include="Zarinpal" Version="3.0.1" />
   </ItemGroup>
 
   <ItemGroup>

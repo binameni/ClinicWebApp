@@ -62,6 +62,7 @@ namespace ClinicWebApp.Pages.Account
                 }
             }
 
+            ModelState.AddModelError(string.Empty, "لطفا موارد خواسته شده را تکمیل نمایید");
             return Page();
         }
     }

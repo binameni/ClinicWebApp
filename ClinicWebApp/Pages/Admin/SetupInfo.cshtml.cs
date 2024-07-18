@@ -62,6 +62,7 @@ namespace ClinicWebApp.Pages.Admin
                 else
                 {
                     await _doctorRepository.AddAsync(doctor);
+                    userDoctor.DoctorInfo = doctor;
                 }
 
                 await _userManager.UpdateAsync(userDoctor);
@@ -69,10 +70,9 @@ namespace ClinicWebApp.Pages.Admin
 
                 // To reload the user cedentials
                 await _signInManager.SignOutAsync();
-                await _signInManager.SignInAsync(userDoctor, isPersistent: true);
 
-                this.SetPrompt("اکانت شما به دسترسی ادمین مجاز شد");
-                return RedirectToPage("../Index");
+                this.SetPrompt("اکانت شما به دسترسی ادمین مجاز شد. لطفا مجدد وارد شوید. \nنام کاربری شما از این پس شماره پزشکی شماست.");
+                return RedirectToPage("../Account/Signin");
             }
 
             return Page();

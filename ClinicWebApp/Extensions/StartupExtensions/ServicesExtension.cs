@@ -1,4 +1,5 @@
-﻿using Clinic.Core.Domain.IdentityEntities;
+﻿using Clinic.Core.Domain.Entities;
+using Clinic.Core.Domain.IdentityEntities;
 using Clinic.Core.Domain.RepositoryContracts;
 using Clinic.Infrastructure.DbContext;
 using Clinic.Infrastructure.Services;
@@ -20,6 +21,7 @@ namespace ClinicWebApp.Extensions.StartupExtensions
             builder.Services.AddScoped<IDoctorRepository, DoctorService>();
             builder.Services.AddTransient<IUserVisitRepository, UserVisitService>();
             builder.Services.AddTransient<IDoctorVisitRepository, DoctorVisitService>();
+            builder.Services.AddTransient<IEmailRepository, EmailService>();
         }
 
         public static void ConfigureUserCredentials(this IHostApplicationBuilder builder)
@@ -64,6 +66,11 @@ namespace ClinicWebApp.Extensions.StartupExtensions
             builder.Services.AddQuartzHostedService();
 
             builder.Services.ConfigureOptions<VisitCleaningBackgroundJobSetup>();
+        }
+
+        public static void ConfigureModels(this IHostApplicationBuilder builder)
+        {
+            builder.Services.Configure<MailSettings>(builder.Configuration.GetSection("MailSettings"));
         }
     }
 }

@@ -13,10 +13,15 @@ using System.ComponentModel.DataAnnotations;
 namespace ClinicWebApp.Pages.Admin.VisitManager
 {
     [Authorize(Roles = nameof(ApplicationRoles.Doctor))]
-    public class VisitGeneratorModel(IVisitRepository visitRepository, UserManager<ApplicationUser> userManager) : PageModelWrapper
+    public class VisitGeneratorModel(IVisitRepository visitRepository, 
+        UserManager<ApplicationUser> userManager,
+        IEmailRepository emailRepository,
+        IDoctorVisitRepository doctorVisitRepository) : PageModelWrapper
     {
         private readonly IVisitRepository _visitRepository = visitRepository;
         private readonly UserManager<ApplicationUser> _userManager = userManager;
+        private readonly IEmailRepository _emailRepository = emailRepository;
+        private readonly IDoctorVisitRepository _doctorVisitRepository = doctorVisitRepository;
 
         [FromQuery]
         public string SelectedDate { get; set; }
@@ -85,11 +90,24 @@ namespace ClinicWebApp.Pages.Admin.VisitManager
                     await _userManager.UpdateAsync(doctor);
 
                     this.SetPrompt("نوبت ها ایجاد شدند.");
+
+                    var users = await _doctorVisitRepository.GetDoctorsPatients(User.Identity.Name);
+                    foreach (var u in users)
+                    {
+                        if (u.Email == null)
+                        {
+                            continue;
+                        }
+
+                        await _emailRepository.Send(u.Email, $"نوبت جدید دکتر {User.Identity.Name}"
+                            , $"سلام آقا/خانم {u.Name} نوبت های جدیدی در تاریخ {SelectedDate} برای دکتر {User.Identity.Name} ایجاد شد.");
+                    }
                 }
                 else
                 {
                     this.SetPrompt("برای ساخت مجدد برنامه نوبت ها، نوبت های قبلی را پاک کنید.");
                 }
+
                 return RedirectToPage("VisitListManager", routeValues: new { SelectedDate = SelectedDate });
             }
 

@@ -43,7 +43,8 @@ namespace ClinicWebApp.Pages.User.VisitReserver
             //});
             foreach (var x in Visits)
             {
-                if (TimeSpan.Parse(x.Time) < DateTime.UtcNow.ToPersianTimeSpan())
+                if (x.Date == DateTime.UtcNow.ToPersianString() &&
+                    TimeSpan.Parse(x.Time) < DateTime.UtcNow.ToPersianTimeSpan())
                 {
                     x.IsActive = false;
                 }

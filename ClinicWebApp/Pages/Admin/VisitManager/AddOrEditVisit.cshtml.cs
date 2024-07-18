@@ -9,14 +9,22 @@ using Microsoft.AspNetCore.Authorization;
 using Clinic.Core.Domain.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
+using Clinic.Infrastructure.Services;
+using System.Net.Mail;
+using System.Net;
 
 namespace ClinicWebApp.Pages.Admin.VisitManager
 {
     [Authorize(Roles = nameof(ApplicationRoles.Doctor))]
-    public class EditVisitModel(IVisitRepository visitRepository, UserManager<ApplicationUser> userManager) : PageModelWrapper
+    public class EditVisitModel(IVisitRepository visitRepository, 
+        UserManager<ApplicationUser> userManager,
+        IEmailRepository emailRepository,
+        IDoctorVisitRepository doctorVisitRepository) : PageModelWrapper
     {
         private readonly IVisitRepository _visitRepository = visitRepository;
         private readonly UserManager<ApplicationUser> _userManager = userManager;
+        private readonly IEmailRepository _emailRepository = emailRepository;
+        private readonly IDoctorVisitRepository _doctorVisitRepository = doctorVisitRepository;
 
         [FromQuery]
         [Display(Name = "آیدی نوبت")]
@@ -83,7 +91,7 @@ namespace ClinicWebApp.Pages.Admin.VisitManager
                 }
                 else
                 {
-                    visit.IsFree= true;
+                    visit.IsFree = true;
                 }
                 visit.Price = Price;
                 if (Id != 0)
@@ -112,6 +120,19 @@ namespace ClinicWebApp.Pages.Admin.VisitManager
                 // so I collected it to pass into redirect
                 Id = visit.Id;
             }
+
+            var users = await _doctorVisitRepository.GetDoctorsPatients(User.Identity.Name);
+            foreach (var u in users)
+            {
+                if (u.Email == null)
+                {
+                    continue;
+                }
+
+                await _emailRepository.Send(u.Email, $"نوبت جدید دکتر {User.Identity.Name}"
+                    , $"سلام آقا/خانم {u.Name} نوبت جدیدی در تاریخ {SelectedDate} و ساعت {Time} برای دکتر {User.Identity.Name} ایجاد شد.");
+            }
+
             return RedirectToPage("AddOrEditVisit", routeValues: new { Id = Id, SelectedDate = SelectedDate });
         }
     }
